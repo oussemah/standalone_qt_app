@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/network.png</file>
+        <file>images/exit.png</file>
+        <file>images/switch_off.png</file>
+        <file>images/switch_on.png</file>
+        <file>images/led_off.png</file>
+        <file>images/led_on.png</file>
+        <file>images/background.png</file>
+        <file>images/gpio.png</file>
+        <file>images/save.png</file>
+    </qresource>
+</RCC>

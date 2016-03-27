@@ -27,6 +27,7 @@ private:
 
     QGPIOHandler *m_gpio_handler;
     int m_output_pin;
+    int m_input_pin;
 };
 
 #endif // GPIO_SETTINGS_H

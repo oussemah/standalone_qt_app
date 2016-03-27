@@ -39,6 +39,9 @@
      <pointsize>16</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ffffff;</string>
+   </property>
    <property name="text">
     <string>IP Address</string>
    </property>
@@ -56,6 +59,9 @@
     <font>
      <pointsize>16</pointsize>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ffffff;</string>
    </property>
    <property name="text">
     <string>Gateway IP</string>
@@ -75,6 +81,9 @@
      <pointsize>16</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ffffff;</string>
+   </property>
    <property name="text">
     <string>NetMask IP</string>
    </property>
@@ -93,8 +102,11 @@
      <pointsize>14</pointsize>
     </font>
    </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">color: #ffff66;</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -114,6 +126,12 @@
      <pointsize>14</pointsize>
     </font>
    </property>
+   <property name="autoFillBackground">
+    <bool>true</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ffff66;</string>
+   </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
    </property>
@@ -131,6 +149,12 @@
     <font>
      <pointsize>14</pointsize>
     </font>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ffff66;</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

@@ -4,7 +4,7 @@
 #include "QFile"
 #include "QTextStream"
 
-#define NETWORK_SETTINGS_FILE "/tmp/interfaces"
+#define NETWORK_SETTINGS_FILE "/etc/network/interfaces"
 
 network_setting::network_setting(QWidget *parent) :
     QFrame(parent),

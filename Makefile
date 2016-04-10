@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I/home/oussema/Qt/5.4/gcc_64/include -I/home/oussema/Qt/5.4/gcc_64/include/QtWidgets -I/home/oussema/Qt/5.4/gcc_64/include/QtGui -I/home/oussema/Qt/5.4/gcc_64/include/QtCore -I. -I. -I/home/oussema/Qt/5.4/gcc_64/mkspecs/linux-g++
+INCPATH       = -I. -IGeneratedFiles -I/home/oussema/Qt/5.4/gcc_64/include -I/home/oussema/Qt/5.4/gcc_64/include/QtWidgets -I/home/oussema/Qt/5.4/gcc_64/include/QtGui -I/home/oussema/Qt/5.4/gcc_64/include/QtCore -IGeneratedFiles -IGeneratedFiles -I/home/oussema/Qt/5.4/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/oussema/Qt/5.4/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -33,7 +33,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = controller1.0.0
-DISTDIR = /usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller/.tmp/controller1.0.0
+DISTDIR = /usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller/Objects/controller1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath,/home/oussema/Qt/5.4/gcc_64 -Wl,-rpath,/home/oussema/Qt/5.4/gcc_64/lib
 LIBS          = $(SUBLIBS) -L/home/oussema/Qt/5.4/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -44,7 +44,7 @@ STRIP         = strip
 
 ####### Output directory
 
-OBJECTS_DIR   = ./
+OBJECTS_DIR   = Objects/
 
 ####### Files
 
@@ -53,24 +53,28 @@ SOURCES       = main.cpp \
 		menu_gpio.cpp \
 		gpio_settings.cpp \
 		network_setting.cpp \
-		qgpiohandler.cpp qrc_controller.cpp \
-		moc_mainwindow.cpp \
-		moc_menu_gpio.cpp \
-		moc_gpio_settings.cpp \
-		moc_network_setting.cpp \
-		moc_qgpiohandler.cpp
-OBJECTS       = main.o \
-		mainwindow.o \
-		menu_gpio.o \
-		gpio_settings.o \
-		network_setting.o \
-		qgpiohandler.o \
-		qrc_controller.o \
-		moc_mainwindow.o \
-		moc_menu_gpio.o \
-		moc_gpio_settings.o \
-		moc_network_setting.o \
-		moc_qgpiohandler.o
+		qgpiohandler.cpp \
+		VirtualKeyboard.cpp GeneratedFiles/qrc_controller.cpp \
+		GeneratedFiles/moc_mainwindow.cpp \
+		GeneratedFiles/moc_menu_gpio.cpp \
+		GeneratedFiles/moc_gpio_settings.cpp \
+		GeneratedFiles/moc_network_setting.cpp \
+		GeneratedFiles/moc_qgpiohandler.cpp \
+		GeneratedFiles/moc_VirtualKeyboard.cpp
+OBJECTS       = Objects/main.o \
+		Objects/mainwindow.o \
+		Objects/menu_gpio.o \
+		Objects/gpio_settings.o \
+		Objects/network_setting.o \
+		Objects/qgpiohandler.o \
+		Objects/VirtualKeyboard.o \
+		Objects/qrc_controller.o \
+		Objects/moc_mainwindow.o \
+		Objects/moc_menu_gpio.o \
+		Objects/moc_gpio_settings.o \
+		Objects/moc_network_setting.o \
+		Objects/moc_qgpiohandler.o \
+		Objects/moc_VirtualKeyboard.o
 DIST          = /home/oussema/Qt/5.4/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/oussema/Qt/5.4/gcc_64/mkspecs/common/shell-unix.conf \
 		/home/oussema/Qt/5.4/gcc_64/mkspecs/common/unix.conf \
@@ -192,12 +196,14 @@ DIST          = /home/oussema/Qt/5.4/gcc_64/mkspecs/features/spec_pre.prf \
 		menu_gpio.h \
 		gpio_settings.h \
 		network_setting.h \
-		qgpiohandler.h main.cpp \
+		qgpiohandler.h \
+		VirtualKeyboard.h main.cpp \
 		mainwindow.cpp \
 		menu_gpio.cpp \
 		gpio_settings.cpp \
 		network_setting.cpp \
-		qgpiohandler.cpp
+		qgpiohandler.cpp \
+		VirtualKeyboard.cpp
 QMAKE_TARGET  = controller
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = controller
@@ -225,7 +231,7 @@ first: all
 
 ####### Build rules
 
-$(TARGET): ui_menu_gpio.h ui_gpio_settings.h ui_mainwindow.h ui_network_setting.h $(OBJECTS)  
+$(TARGET): GeneratedFiles/ui_menu_gpio.h GeneratedFiles/ui_gpio_settings.h GeneratedFiles/ui_mainwindow.h GeneratedFiles/ui_network_setting.h GeneratedFiles/ui_VirtualKeyboard.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: controller.pro /home/oussema/Qt/5.4/gcc_64/mkspecs/linux-g++/qmake.conf /home/oussema/Qt/5.4/gcc_64/mkspecs/features/spec_pre.prf \
@@ -488,9 +494,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents controller.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h menu_gpio.h gpio_settings.h network_setting.h qgpiohandler.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp menu_gpio.cpp gpio_settings.cpp network_setting.cpp qgpiohandler.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents menu_gpio.ui gpio_settings.ui mainwindow.ui network_setting.ui $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h menu_gpio.h gpio_settings.h network_setting.h qgpiohandler.h VirtualKeyboard.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp menu_gpio.cpp gpio_settings.cpp network_setting.cpp qgpiohandler.cpp VirtualKeyboard.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents menu_gpio.ui gpio_settings.ui mainwindow.ui network_setting.ui VirtualKeyboard.ui $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -511,25 +517,29 @@ mocables: compiler_moc_header_make_all compiler_moc_source_make_all
 
 check: first
 
-compiler_rcc_make_all: qrc_controller.cpp
+compiler_rcc_make_all: GeneratedFiles/qrc_controller.cpp
 compiler_rcc_clean:
-	-$(DEL_FILE) qrc_controller.cpp
-qrc_controller.cpp: controller.qrc \
+	-$(DEL_FILE) GeneratedFiles/qrc_controller.cpp
+GeneratedFiles/qrc_controller.cpp: controller.qrc \
 		images/network.png \
 		images/save.png \
+		images/backspace.png \
+		images/arrows.png \
 		images/led_off.png \
 		images/background.png \
 		images/switch_on.png \
 		images/led_on.png \
 		images/switch_off.png \
+		images/hide.png \
 		images/exit.png \
-		images/gpio.png
-	/home/oussema/Qt/5.4/gcc_64/bin/rcc -name controller controller.qrc -o qrc_controller.cpp
+		images/gpio.png \
+		images/enter.png
+	/home/oussema/Qt/5.4/gcc_64/bin/rcc -name controller controller.qrc -o GeneratedFiles/qrc_controller.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_menu_gpio.cpp moc_gpio_settings.cpp moc_network_setting.cpp moc_qgpiohandler.cpp
+compiler_moc_header_make_all: GeneratedFiles/moc_mainwindow.cpp GeneratedFiles/moc_menu_gpio.cpp GeneratedFiles/moc_gpio_settings.cpp GeneratedFiles/moc_network_setting.cpp GeneratedFiles/moc_qgpiohandler.cpp GeneratedFiles/moc_VirtualKeyboard.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_menu_gpio.cpp moc_gpio_settings.cpp moc_network_setting.cpp moc_qgpiohandler.cpp
-moc_mainwindow.cpp: /home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QMainWindow \
+	-$(DEL_FILE) GeneratedFiles/moc_mainwindow.cpp GeneratedFiles/moc_menu_gpio.cpp GeneratedFiles/moc_gpio_settings.cpp GeneratedFiles/moc_network_setting.cpp GeneratedFiles/moc_qgpiohandler.cpp GeneratedFiles/moc_VirtualKeyboard.cpp
+GeneratedFiles/moc_mainwindow.cpp: /home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QMainWindow \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qmainwindow.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qwidget.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qwindowdefs.h \
@@ -643,10 +653,51 @@ moc_mainwindow.cpp: /home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QMainWindow \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QFileSystemWatcher \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qfilesystemwatcher.h \
 		network_setting.h \
+		VirtualKeyboard.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QSignalMapper \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qsignalmapper.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QRegExp \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QLineEdit \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qlineedit.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextcursor.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextformat.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qpen.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextoption.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QPlainTextEdit \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qplaintextedit.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtextedit.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextdocument.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qabstracttextdocumentlayout.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextlayout.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qglyphrun.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qrawfont.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qfontdatabase.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QComboBox \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qcombobox.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qvalidator.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qregularexpression.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qslider.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qstyle.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QPointer \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qpointer.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QPropertyAnimation \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qpropertyanimation.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qvariantanimation.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qeasingcurve.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qabstractanimation.h \
+		GeneratedFiles/ui_VirtualKeyboard.h \
 		mainwindow.h
-	/home/oussema/Qt/5.4/gcc_64/bin/moc $(DEFINES) -I/home/oussema/Qt/5.4/gcc_64/mkspecs/linux-g++ -I/usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller -I/home/oussema/Qt/5.4/gcc_64/include -I/home/oussema/Qt/5.4/gcc_64/include/QtWidgets -I/home/oussema/Qt/5.4/gcc_64/include/QtGui -I/home/oussema/Qt/5.4/gcc_64/include/QtCore mainwindow.h -o moc_mainwindow.cpp
+	/home/oussema/Qt/5.4/gcc_64/bin/moc $(DEFINES) -I/home/oussema/Qt/5.4/gcc_64/mkspecs/linux-g++ -I/usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller -I/usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller/GeneratedFiles -I/home/oussema/Qt/5.4/gcc_64/include -I/home/oussema/Qt/5.4/gcc_64/include/QtWidgets -I/home/oussema/Qt/5.4/gcc_64/include/QtGui -I/home/oussema/Qt/5.4/gcc_64/include/QtCore mainwindow.h -o GeneratedFiles/moc_mainwindow.cpp
 
-moc_menu_gpio.cpp: /home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QFrame \
+GeneratedFiles/moc_menu_gpio.cpp: /home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QFrame \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qframe.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qwidget.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qwindowdefs.h \
@@ -750,9 +801,9 @@ moc_menu_gpio.cpp: /home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QFrame \
 		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qvector2d.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtouchdevice.h \
 		menu_gpio.h
-	/home/oussema/Qt/5.4/gcc_64/bin/moc $(DEFINES) -I/home/oussema/Qt/5.4/gcc_64/mkspecs/linux-g++ -I/usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller -I/home/oussema/Qt/5.4/gcc_64/include -I/home/oussema/Qt/5.4/gcc_64/include/QtWidgets -I/home/oussema/Qt/5.4/gcc_64/include/QtGui -I/home/oussema/Qt/5.4/gcc_64/include/QtCore menu_gpio.h -o moc_menu_gpio.cpp
+	/home/oussema/Qt/5.4/gcc_64/bin/moc $(DEFINES) -I/home/oussema/Qt/5.4/gcc_64/mkspecs/linux-g++ -I/usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller -I/usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller/GeneratedFiles -I/home/oussema/Qt/5.4/gcc_64/include -I/home/oussema/Qt/5.4/gcc_64/include/QtWidgets -I/home/oussema/Qt/5.4/gcc_64/include/QtGui -I/home/oussema/Qt/5.4/gcc_64/include/QtCore menu_gpio.h -o GeneratedFiles/moc_menu_gpio.cpp
 
-moc_gpio_settings.cpp: /home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QFrame \
+GeneratedFiles/moc_gpio_settings.cpp: /home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QFrame \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qframe.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qwidget.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qwindowdefs.h \
@@ -860,9 +911,9 @@ moc_gpio_settings.cpp: /home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QFrame \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QFileSystemWatcher \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qfilesystemwatcher.h \
 		gpio_settings.h
-	/home/oussema/Qt/5.4/gcc_64/bin/moc $(DEFINES) -I/home/oussema/Qt/5.4/gcc_64/mkspecs/linux-g++ -I/usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller -I/home/oussema/Qt/5.4/gcc_64/include -I/home/oussema/Qt/5.4/gcc_64/include/QtWidgets -I/home/oussema/Qt/5.4/gcc_64/include/QtGui -I/home/oussema/Qt/5.4/gcc_64/include/QtCore gpio_settings.h -o moc_gpio_settings.cpp
+	/home/oussema/Qt/5.4/gcc_64/bin/moc $(DEFINES) -I/home/oussema/Qt/5.4/gcc_64/mkspecs/linux-g++ -I/usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller -I/usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller/GeneratedFiles -I/home/oussema/Qt/5.4/gcc_64/include -I/home/oussema/Qt/5.4/gcc_64/include/QtWidgets -I/home/oussema/Qt/5.4/gcc_64/include/QtGui -I/home/oussema/Qt/5.4/gcc_64/include/QtCore gpio_settings.h -o GeneratedFiles/moc_gpio_settings.cpp
 
-moc_network_setting.cpp: /home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QFrame \
+GeneratedFiles/moc_network_setting.cpp: /home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QFrame \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qframe.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qwidget.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qwindowdefs.h \
@@ -966,9 +1017,9 @@ moc_network_setting.cpp: /home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QFrame \
 		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qvector2d.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtouchdevice.h \
 		network_setting.h
-	/home/oussema/Qt/5.4/gcc_64/bin/moc $(DEFINES) -I/home/oussema/Qt/5.4/gcc_64/mkspecs/linux-g++ -I/usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller -I/home/oussema/Qt/5.4/gcc_64/include -I/home/oussema/Qt/5.4/gcc_64/include/QtWidgets -I/home/oussema/Qt/5.4/gcc_64/include/QtGui -I/home/oussema/Qt/5.4/gcc_64/include/QtCore network_setting.h -o moc_network_setting.cpp
+	/home/oussema/Qt/5.4/gcc_64/bin/moc $(DEFINES) -I/home/oussema/Qt/5.4/gcc_64/mkspecs/linux-g++ -I/usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller -I/usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller/GeneratedFiles -I/home/oussema/Qt/5.4/gcc_64/include -I/home/oussema/Qt/5.4/gcc_64/include/QtWidgets -I/home/oussema/Qt/5.4/gcc_64/include/QtGui -I/home/oussema/Qt/5.4/gcc_64/include/QtCore network_setting.h -o GeneratedFiles/moc_network_setting.cpp
 
-moc_qgpiohandler.cpp: /home/oussema/Qt/5.4/gcc_64/include/QtCore/QObject \
+GeneratedFiles/moc_qgpiohandler.cpp: /home/oussema/Qt/5.4/gcc_64/include/QtCore/QObject \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qobject.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qobjectdefs.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qnamespace.h \
@@ -1021,24 +1072,175 @@ moc_qgpiohandler.cpp: /home/oussema/Qt/5.4/gcc_64/include/QtCore/QObject \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QFileSystemWatcher \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qfilesystemwatcher.h \
 		qgpiohandler.h
-	/home/oussema/Qt/5.4/gcc_64/bin/moc $(DEFINES) -I/home/oussema/Qt/5.4/gcc_64/mkspecs/linux-g++ -I/usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller -I/home/oussema/Qt/5.4/gcc_64/include -I/home/oussema/Qt/5.4/gcc_64/include/QtWidgets -I/home/oussema/Qt/5.4/gcc_64/include/QtGui -I/home/oussema/Qt/5.4/gcc_64/include/QtCore qgpiohandler.h -o moc_qgpiohandler.cpp
+	/home/oussema/Qt/5.4/gcc_64/bin/moc $(DEFINES) -I/home/oussema/Qt/5.4/gcc_64/mkspecs/linux-g++ -I/usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller -I/usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller/GeneratedFiles -I/home/oussema/Qt/5.4/gcc_64/include -I/home/oussema/Qt/5.4/gcc_64/include/QtWidgets -I/home/oussema/Qt/5.4/gcc_64/include/QtGui -I/home/oussema/Qt/5.4/gcc_64/include/QtCore qgpiohandler.h -o GeneratedFiles/moc_qgpiohandler.cpp
+
+GeneratedFiles/moc_VirtualKeyboard.cpp: /home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QFrame \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qframe.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qwidget.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qglobal.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qconfig.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qfeatures.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qtypetraits.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qsysinfo.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qlogging.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qflags.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_armv7.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_armv6.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_armv5.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_ia64.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_mips.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_x86.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_gcc.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_unix.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qmutex.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qnumeric.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qnamespace.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qobject.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qstring.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qchar.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qbytearray.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qrefcount.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qarraydata.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qlist.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qalgorithms.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qiterator.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qcoreevent.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qmetatype.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qisenum.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qobject_impl.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qmargins.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qrect.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qsize.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qpoint.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qpalette.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qcolor.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qrgb.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qstringlist.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qdatastream.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qiodevice.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qpair.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qregexp.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qbrush.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qvector.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qmatrix.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qpolygon.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qregion.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qline.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtransform.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qpainterpath.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qimage.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qpixelformat.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qpixmap.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qshareddata.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qhash.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qfont.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qfontinfo.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qcursor.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qkeysequence.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qevent.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qvariant.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qmap.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qdebug.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qtextstream.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qlocale.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qset.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qurl.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qurlquery.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qfile.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qfiledevice.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qvector2d.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QSignalMapper \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qsignalmapper.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QRegExp \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QLineEdit \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qlineedit.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextcursor.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextformat.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qpen.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextoption.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QPlainTextEdit \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qplaintextedit.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtextedit.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextdocument.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qabstracttextdocumentlayout.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextlayout.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qglyphrun.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qrawfont.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qfontdatabase.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QComboBox \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qcombobox.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qvalidator.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qregularexpression.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qicon.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qslider.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qstyle.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QPointer \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qpointer.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QPropertyAnimation \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qpropertyanimation.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qvariantanimation.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qeasingcurve.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qabstractanimation.h \
+		GeneratedFiles/ui_VirtualKeyboard.h \
+		VirtualKeyboard.h
+	/home/oussema/Qt/5.4/gcc_64/bin/moc $(DEFINES) -I/home/oussema/Qt/5.4/gcc_64/mkspecs/linux-g++ -I/usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller -I/usr/local/workspace/custom_libs/qt/gpio_controller_atmel/controller/GeneratedFiles -I/home/oussema/Qt/5.4/gcc_64/include -I/home/oussema/Qt/5.4/gcc_64/include/QtWidgets -I/home/oussema/Qt/5.4/gcc_64/include/QtGui -I/home/oussema/Qt/5.4/gcc_64/include/QtCore VirtualKeyboard.h -o GeneratedFiles/moc_VirtualKeyboard.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_menu_gpio.h ui_gpio_settings.h ui_mainwindow.h ui_network_setting.h
+compiler_uic_make_all: GeneratedFiles/ui_menu_gpio.h GeneratedFiles/ui_gpio_settings.h GeneratedFiles/ui_mainwindow.h GeneratedFiles/ui_network_setting.h GeneratedFiles/ui_VirtualKeyboard.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_menu_gpio.h ui_gpio_settings.h ui_mainwindow.h ui_network_setting.h
-ui_menu_gpio.h: menu_gpio.ui
-	/home/oussema/Qt/5.4/gcc_64/bin/uic menu_gpio.ui -o ui_menu_gpio.h
+	-$(DEL_FILE) GeneratedFiles/ui_menu_gpio.h GeneratedFiles/ui_gpio_settings.h GeneratedFiles/ui_mainwindow.h GeneratedFiles/ui_network_setting.h GeneratedFiles/ui_VirtualKeyboard.h
+GeneratedFiles/ui_menu_gpio.h: menu_gpio.ui
+	/home/oussema/Qt/5.4/gcc_64/bin/uic menu_gpio.ui -o GeneratedFiles/ui_menu_gpio.h
 
-ui_gpio_settings.h: gpio_settings.ui
-	/home/oussema/Qt/5.4/gcc_64/bin/uic gpio_settings.ui -o ui_gpio_settings.h
+GeneratedFiles/ui_gpio_settings.h: gpio_settings.ui
+	/home/oussema/Qt/5.4/gcc_64/bin/uic gpio_settings.ui -o GeneratedFiles/ui_gpio_settings.h
 
-ui_mainwindow.h: mainwindow.ui
-	/home/oussema/Qt/5.4/gcc_64/bin/uic mainwindow.ui -o ui_mainwindow.h
+GeneratedFiles/ui_mainwindow.h: mainwindow.ui
+	/home/oussema/Qt/5.4/gcc_64/bin/uic mainwindow.ui -o GeneratedFiles/ui_mainwindow.h
 
-ui_network_setting.h: network_setting.ui
-	/home/oussema/Qt/5.4/gcc_64/bin/uic network_setting.ui -o ui_network_setting.h
+GeneratedFiles/ui_network_setting.h: network_setting.ui
+	/home/oussema/Qt/5.4/gcc_64/bin/uic network_setting.ui -o GeneratedFiles/ui_network_setting.h
+
+GeneratedFiles/ui_VirtualKeyboard.h: VirtualKeyboard.ui
+	/home/oussema/Qt/5.4/gcc_64/bin/uic VirtualKeyboard.ui -o GeneratedFiles/ui_VirtualKeyboard.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -1050,7 +1252,7 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 
 ####### Compile
 
-main.o: main.cpp mainwindow.h \
+Objects/main.o: main.cpp mainwindow.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QMainWindow \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qmainwindow.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qwidget.h \
@@ -1165,6 +1367,47 @@ main.o: main.cpp mainwindow.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QFileSystemWatcher \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qfilesystemwatcher.h \
 		network_setting.h \
+		VirtualKeyboard.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QSignalMapper \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qsignalmapper.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QRegExp \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QLineEdit \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qlineedit.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextcursor.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextformat.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qpen.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextoption.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QPlainTextEdit \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qplaintextedit.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtextedit.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextdocument.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qabstracttextdocumentlayout.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextlayout.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qglyphrun.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qrawfont.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qfontdatabase.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QComboBox \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qcombobox.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qvalidator.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qregularexpression.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qslider.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qstyle.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QPointer \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qpointer.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QPropertyAnimation \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qpropertyanimation.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qvariantanimation.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qeasingcurve.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qabstractanimation.h \
+		GeneratedFiles/ui_VirtualKeyboard.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QApplication \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qapplication.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1172,9 +1415,9 @@ main.o: main.cpp mainwindow.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qguiapplication.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qinputmethod.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Objects/main.o main.cpp
 
-mainwindow.o: mainwindow.cpp /home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QVBoxLayout \
+Objects/mainwindow.o: mainwindow.cpp /home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QVBoxLayout \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qboxlayout.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qlayout.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qobject.h \
@@ -1280,6 +1523,7 @@ mainwindow.o: mainwindow.cpp /home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QVBox
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qfiledevice.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qvector2d.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QTextStream \
 		mainwindow.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QMainWindow \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qmainwindow.h \
@@ -1293,10 +1537,51 @@ mainwindow.o: mainwindow.cpp /home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QVBox
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QObject \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QFileSystemWatcher \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qfilesystemwatcher.h \
-		network_setting.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
+		network_setting.h \
+		VirtualKeyboard.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QSignalMapper \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qsignalmapper.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QRegExp \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QLineEdit \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qlineedit.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextcursor.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextformat.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qpen.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextoption.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QPlainTextEdit \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qplaintextedit.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtextedit.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextdocument.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qabstracttextdocumentlayout.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextlayout.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qglyphrun.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qrawfont.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qfontdatabase.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QComboBox \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qcombobox.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qvalidator.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qregularexpression.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qslider.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qstyle.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QPointer \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qpointer.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QPropertyAnimation \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qpropertyanimation.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qvariantanimation.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qeasingcurve.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qabstractanimation.h \
+		GeneratedFiles/ui_VirtualKeyboard.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Objects/mainwindow.o mainwindow.cpp
 
-menu_gpio.o: menu_gpio.cpp menu_gpio.h \
+Objects/menu_gpio.o: menu_gpio.cpp menu_gpio.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QFrame \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qframe.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qwidget.h \
@@ -1400,44 +1685,10 @@ menu_gpio.o: menu_gpio.cpp menu_gpio.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qfiledevice.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qvector2d.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtouchdevice.h \
-		ui_menu_gpio.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QVariant \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QAction \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qaction.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qicon.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qactiongroup.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QApplication \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qapplication.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qcoreapplication.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qeventloop.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qguiapplication.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qinputmethod.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QButtonGroup \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qbuttongroup.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QHeaderView \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qheaderview.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractitemview.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qabstractitemmodel.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qitemselectionmodel.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qstyleoption.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qvalidator.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qregularexpression.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qslider.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractslider.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qstyle.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtabbar.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtabwidget.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qrubberband.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QToolButton \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtoolbutton.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractbutton.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o menu_gpio.o menu_gpio.cpp
+		GeneratedFiles/ui_menu_gpio.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Objects/menu_gpio.o menu_gpio.cpp
 
-gpio_settings.o: gpio_settings.cpp gpio_settings.h \
+Objects/gpio_settings.o: gpio_settings.cpp gpio_settings.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QFrame \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qframe.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qwidget.h \
@@ -1545,46 +1796,10 @@ gpio_settings.o: gpio_settings.cpp gpio_settings.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QObject \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QFileSystemWatcher \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qfilesystemwatcher.h \
-		ui_gpio_settings.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QVariant \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QAction \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qaction.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qicon.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qactiongroup.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QApplication \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qapplication.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qcoreapplication.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qeventloop.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qguiapplication.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qinputmethod.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QButtonGroup \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qbuttongroup.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QHeaderView \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qheaderview.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractitemview.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qabstractitemmodel.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qitemselectionmodel.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qstyleoption.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qvalidator.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qregularexpression.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qslider.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractslider.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qstyle.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtabbar.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtabwidget.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qrubberband.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QLabel \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qlabel.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QToolButton \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtoolbutton.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractbutton.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gpio_settings.o gpio_settings.cpp
+		GeneratedFiles/ui_gpio_settings.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Objects/gpio_settings.o gpio_settings.cpp
 
-network_setting.o: network_setting.cpp network_setting.h \
+Objects/network_setting.o: network_setting.cpp network_setting.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QFrame \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qframe.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qwidget.h \
@@ -1688,54 +1903,15 @@ network_setting.o: network_setting.cpp network_setting.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qfiledevice.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qvector2d.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtouchdevice.h \
-		ui_network_setting.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QVariant \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QAction \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qaction.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qicon.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qactiongroup.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QApplication \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qapplication.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qcoreapplication.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qeventloop.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qguiapplication.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qinputmethod.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QButtonGroup \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qbuttongroup.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QHeaderView \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qheaderview.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractitemview.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qabstractitemmodel.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qitemselectionmodel.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qstyleoption.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qvalidator.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qregularexpression.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qslider.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractslider.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qstyle.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtabbar.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtabwidget.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qrubberband.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QLabel \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qlabel.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QLineEdit \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qlineedit.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextcursor.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextformat.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qpen.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextoption.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QToolButton \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtoolbutton.h \
-		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractbutton.h \
+		GeneratedFiles/ui_network_setting.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QFile \
-		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QTextStream
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o network_setting.o network_setting.cpp
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QTextStream \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QMessageBox \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qmessagebox.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qdialog.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Objects/network_setting.o network_setting.cpp
 
-qgpiohandler.o: qgpiohandler.cpp qgpiohandler.h \
+Objects/qgpiohandler.o: qgpiohandler.cpp qgpiohandler.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QObject \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qobject.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qobjectdefs.h \
@@ -1845,31 +2021,193 @@ qgpiohandler.o: qgpiohandler.cpp qgpiohandler.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qurlquery.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qvector2d.h \
 		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtouchdevice.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qgpiohandler.o qgpiohandler.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Objects/qgpiohandler.o qgpiohandler.cpp
 
-qrc_controller.o: qrc_controller.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_controller.o qrc_controller.cpp
+Objects/VirtualKeyboard.o: VirtualKeyboard.cpp VirtualKeyboard.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QFrame \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qframe.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qwidget.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qglobal.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qconfig.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qfeatures.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qtypetraits.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qsysinfo.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qlogging.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qflags.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_armv7.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_armv6.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_armv5.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_ia64.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_mips.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_x86.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_gcc.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qatomic_unix.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qmutex.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qnumeric.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qnamespace.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qobject.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qstring.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qchar.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qbytearray.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qrefcount.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qarraydata.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qlist.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qalgorithms.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qiterator.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qcoreevent.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qmetatype.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qisenum.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qobject_impl.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qmargins.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qrect.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qsize.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qpoint.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qpalette.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qcolor.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qrgb.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qstringlist.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qdatastream.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qiodevice.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qpair.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qregexp.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qbrush.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qvector.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qmatrix.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qpolygon.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qregion.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qline.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtransform.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qpainterpath.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qimage.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qpixelformat.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qpixmap.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qshareddata.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qhash.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qfont.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qfontinfo.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qcursor.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qkeysequence.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qevent.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qvariant.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qmap.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qdebug.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qtextstream.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qlocale.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qset.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qurl.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qurlquery.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qfile.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qfiledevice.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qvector2d.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QSignalMapper \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qsignalmapper.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QRegExp \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QLineEdit \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qlineedit.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextcursor.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextformat.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qpen.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextoption.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QPlainTextEdit \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qplaintextedit.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtextedit.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextdocument.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qabstracttextdocumentlayout.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qtextlayout.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qglyphrun.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qrawfont.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qfontdatabase.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/QComboBox \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qcombobox.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qvalidator.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qregularexpression.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtGui/qicon.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qslider.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qstyle.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QPointer \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qpointer.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QPropertyAnimation \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qpropertyanimation.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qvariantanimation.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qeasingcurve.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/qabstractanimation.h \
+		GeneratedFiles/ui_VirtualKeyboard.h \
+		/home/oussema/Qt/5.4/gcc_64/include/QtCore/QTextStream
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Objects/VirtualKeyboard.o VirtualKeyboard.cpp
 
-moc_mainwindow.o: moc_mainwindow.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+Objects/qrc_controller.o: GeneratedFiles/qrc_controller.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Objects/qrc_controller.o GeneratedFiles/qrc_controller.cpp
 
-moc_menu_gpio.o: moc_menu_gpio.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_menu_gpio.o moc_menu_gpio.cpp
+Objects/moc_mainwindow.o: GeneratedFiles/moc_mainwindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Objects/moc_mainwindow.o GeneratedFiles/moc_mainwindow.cpp
 
-moc_gpio_settings.o: moc_gpio_settings.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_gpio_settings.o moc_gpio_settings.cpp
+Objects/moc_menu_gpio.o: GeneratedFiles/moc_menu_gpio.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Objects/moc_menu_gpio.o GeneratedFiles/moc_menu_gpio.cpp
 
-moc_network_setting.o: moc_network_setting.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_network_setting.o moc_network_setting.cpp
+Objects/moc_gpio_settings.o: GeneratedFiles/moc_gpio_settings.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Objects/moc_gpio_settings.o GeneratedFiles/moc_gpio_settings.cpp
 
-moc_qgpiohandler.o: moc_qgpiohandler.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_qgpiohandler.o moc_qgpiohandler.cpp
+Objects/moc_network_setting.o: GeneratedFiles/moc_network_setting.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Objects/moc_network_setting.o GeneratedFiles/moc_network_setting.cpp
+
+Objects/moc_qgpiohandler.o: GeneratedFiles/moc_qgpiohandler.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Objects/moc_qgpiohandler.o GeneratedFiles/moc_qgpiohandler.cpp
+
+Objects/moc_VirtualKeyboard.o: GeneratedFiles/moc_VirtualKeyboard.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Objects/moc_VirtualKeyboard.o GeneratedFiles/moc_VirtualKeyboard.cpp
 
 ####### Install
 
-install:   FORCE
+install_target: first FORCE
+	@test -d $(INSTALL_ROOT)/usr/bin || mkdir -p $(INSTALL_ROOT)/usr/bin
+	-$(INSTALL_PROGRAM) "$(QMAKE_TARGET)" "$(INSTALL_ROOT)/usr/bin/$(QMAKE_TARGET)"
+	-$(STRIP) "$(INSTALL_ROOT)/usr/bin/$(QMAKE_TARGET)"
 
-uninstall:   FORCE
+uninstall_target: FORCE
+	-$(DEL_FILE) "$(INSTALL_ROOT)/usr/bin/$(QMAKE_TARGET)"
+	-$(DEL_DIR) $(INSTALL_ROOT)/usr/bin/ 
+
+
+install:  install_target  FORCE
+
+uninstall: uninstall_target   FORCE
 
 FORCE:
 

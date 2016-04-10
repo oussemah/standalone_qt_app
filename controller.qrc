@@ -9,5 +9,9 @@
         <file>images/background.png</file>
         <file>images/gpio.png</file>
         <file>images/save.png</file>
+        <file>images/backspace.png</file>
+        <file>images/enter.png</file>
+        <file>images/arrows.png</file>
+        <file>images/hide.png</file>
     </qresource>
 </RCC>

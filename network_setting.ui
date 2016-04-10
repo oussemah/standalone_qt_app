@@ -127,7 +127,7 @@
     </font>
    </property>
    <property name="autoFillBackground">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="styleSheet">
     <string notr="true">color: #ffff66;</string>
@@ -187,6 +187,45 @@
      <width>48</width>
      <height>48</height>
     </size>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_ip_address">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>100</y>
+     <width>51</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Edit</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_gw_ip">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>150</y>
+     <width>51</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Edit</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_netmask_ip">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>200</y>
+     <width>51</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Edit</string>
    </property>
   </widget>
  </widget>

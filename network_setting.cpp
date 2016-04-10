@@ -1,8 +1,9 @@
 #include "network_setting.h"
 #include "ui_network_setting.h"
 
-#include "QFile"
-#include "QTextStream"
+#include <QFile>
+#include <QTextStream>
+#include <QMessageBox>
 
 #define NETWORK_SETTINGS_FILE "/etc/network/interfaces"
 
@@ -12,6 +13,7 @@ network_setting::network_setting(QWidget *parent) :
 {
     ui->setupUi(this);
     loadSettings();
+
     show();
 }
 
@@ -139,6 +141,8 @@ void network_setting::saveSettings(void)
     QTextStream out(&file);
     out << total_file;
     file.close();
+    QMessageBox msg;
+    msg.critical(0, "Info", "Network configuration saved to /etc/network/interfaces");
     return;
 }
 
@@ -146,3 +150,19 @@ void network_setting::on_toolButton_clicked()
 {
     saveSettings();
 }
+
+void network_setting::on_pb_ip_address_clicked()
+{
+    emit requestInput(ui->ledit_ip_address);
+}
+
+void network_setting::on_pb_gw_ip_clicked()
+{
+    emit requestInput(ui->ledit_gw_ip);
+}
+
+void network_setting::on_pb_netmask_ip_clicked()
+{
+    emit requestInput(ui->ledit_netmask_ip);
+}
+

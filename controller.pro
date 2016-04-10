@@ -30,19 +30,22 @@ SOURCES += main.cpp\
     menu_gpio.cpp \
     gpio_settings.cpp \
     network_setting.cpp \
-    qgpiohandler.cpp
+    qgpiohandler.cpp \
+    VirtualKeyboard.cpp
 
 HEADERS  += mainwindow.h \
     menu_gpio.h \
     gpio_settings.h \
     network_setting.h \
-    qgpiohandler.h
+    qgpiohandler.h \
+    VirtualKeyboard.h
 
 FORMS    += \
     menu_gpio.ui \
     gpio_settings.ui \
     mainwindow.ui \
-    network_setting.ui
+    network_setting.ui \
+    VirtualKeyboard.ui
 
 RESOURCES += \
     controller.qrc
